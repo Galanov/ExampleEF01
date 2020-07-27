@@ -15,7 +15,9 @@ namespace efex01
 {
     public class Startup
     {
-        public Startup(IConfiguration config)=> Configuration = config;
+        public Startup(IConfiguration config) => Configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json").Build();
+            //config;
         public IConfiguration Configuration{get;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -23,7 +25,14 @@ namespace efex01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IRepository, DataRepository>();
+            
+            var test1 = Configuration["test:value2"];
+            var test2 = Configuration["test2"];
+            string conString = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(conString, x => x.MigrationsAssembly("efex01")));
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IRepository, DataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

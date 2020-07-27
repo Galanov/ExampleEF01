@@ -5,9 +5,9 @@ namespace efex01.Models
 {
     public class DataRepository:IRepository
     {
-        public DataRepository()
-        {
-        }
+        //public DataRepository()
+        //{
+        //}
 
         //private List<Product> data = new List<Product>();
         private DataContext context;
