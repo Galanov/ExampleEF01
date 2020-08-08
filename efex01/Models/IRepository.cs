@@ -7,5 +7,9 @@ namespace efex01.Models
     {
         IEnumerable<Product> Products { get; }
         void AddProduct(Product product);
+
+        Product GetProduct(long key);
+
+        void UpdateProduct(Product product);
     }
 }

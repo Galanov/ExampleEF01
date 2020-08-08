@@ -3,7 +3,12 @@
     <head>
         <meta name="viewport" content="width=device-width"/>
         <title>SportsStore</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="~/vendor.min.css"/>
+        <style>
+            <!--По умолчанию HTML-элемент, которому назначается класс placeholder, будет иметь свойство visibility, установленное в collapse, и св-во display, что не позволит пользователю его видеть. Но когда HTML-элемент является единственным дочерним элементом включаещего элемента, значение св--в изменяется, что достигается за счет использования псевдокласса only-child  -->
+            .placehplder{visibility: collapse; display: none;}
+            .placehplder: :only-child {visibility: visible; displey: flex; }
+        </style>
     </head>
     <body>
         <div class="p-2">

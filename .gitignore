@@ -61,3 +61,6 @@ wwwroot/lib
 # Visual Studio 2015 
 
 .vs/ 
+
+#Styles
+node_modules/
