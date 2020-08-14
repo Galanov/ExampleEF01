@@ -28,6 +28,7 @@ namespace efex01
             
             var test1 = Configuration["test:value2"];
             var test2 = Configuration["test2"];
+            //string conString = Configuration["ConnectionStrings:DefaultConnectionForUbuntu"];
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(conString, x => x.MigrationsAssembly("efex01")));
