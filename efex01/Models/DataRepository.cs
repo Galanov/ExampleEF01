@@ -41,5 +41,11 @@ namespace efex01.Models
             //context.Products.Update(product);
             context.SaveChanges();
         }
+
+        public void UpdateAll(Product[] products)
+        {
+            context.Products.UpdateRange(products);
+            context.SaveChanges();
+        } 
     }
 }

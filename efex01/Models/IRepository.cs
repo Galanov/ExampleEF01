@@ -11,5 +11,7 @@ namespace efex01.Models
         Product GetProduct(long key);
 
         void UpdateProduct(Product product);
+
+        void UpdateAll(Product[] products);
     }
 }

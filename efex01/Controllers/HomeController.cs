@@ -38,5 +38,16 @@ namespace efex01.Controllers
             repository.UpdateProduct(product);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult UpdateAll(){
+            ViewBag.UpdateAll = true;
+            return View(nameof(Index), repository.Products);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAll(Product[] products){
+            repository.UpdateAll(products);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
