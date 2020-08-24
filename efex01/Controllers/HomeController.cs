@@ -8,10 +8,12 @@ namespace efex01.Controllers
     public class HomeController:Controller
     {
         private IRepository repository;
+        private ICategoryRepository catRepository;
 
-        public HomeController(IRepository repo)
+        public HomeController(IRepository repo, ICategoryRepository categoryRepository)
         {
             repository = repo;
+            catRepository = categoryRepository;
         }
 
         public IActionResult Index() {
@@ -29,13 +31,21 @@ namespace efex01.Controllers
 
         public IActionResult UpdateProduct(long key)
         {
-            return View(repository.GetProduct(key));
+            ViewBag.Categories = catRepository.Categories;
+            return View(key == 0 ? new Product() : repository.GetProduct(key));
         }
 
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
         {
-            repository.UpdateProduct(product);
+            if (product.Id == 0)
+            {
+                repository.AddProduct(product);
+            }
+            else
+            {
+                repository.UpdateProduct(product);
+            }
             return RedirectToAction(nameof(Index));
         }
 

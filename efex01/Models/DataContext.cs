@@ -7,5 +7,7 @@ namespace efex01.Models
             :base(opts){}
         
         public DbSet<Product> Products{get;set;}
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
