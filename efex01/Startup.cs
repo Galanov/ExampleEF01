@@ -35,6 +35,7 @@ namespace efex01
             //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IRepository, DataRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IOrdersRepository, OrdersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
