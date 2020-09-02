@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using efex01.Models.Pages;
 using Microsoft.EntityFrameworkCore;
 
 namespace efex01.Models
@@ -68,6 +69,11 @@ namespace efex01.Models
         {
             context.Products.Remove(product);
             context.SaveChanges();
+        }
+
+        public PagedList<Product> GetProducts(QueryOptions options)
+        {
+            return new PagedList<Product>(context.Products.Include(p => p.Category), options);
         }
     }
 }

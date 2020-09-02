@@ -46,19 +46,19 @@ declare @catCount int = @rowCount/10;
 declare @pprice decimal(5,2);
 declare @rprice decimal(5,2);
 begin transaction
-while @i<@catCount
+while @i<=@catCount
 begin
 insert into Categories (Name, Description)
 values (concat('Category-',@i),
 'Test Data Category');
-set @catId = SCOPE_DENTITY();
+set @catId = SCOPE_IDENTITY();
 declare @j int = 1;
 while @j<=10
 begin 
 set @pprice = rand()*(500-5+1);
 set @rprice = (Rand() * @pprice) + @pprice;
 insert into Products (name, categoryid, purchasePrice, retailPrice)
-values (concat('Product',@i,'-'@j), @catId, @pprice, @rprice)
+values (concat('Product',@i,'-',@j), @catId, @pprice, @rprice)
 set @j= @j+1;
 end
 set @i = @i+1;
@@ -78,7 +78,7 @@ end");
             context.Database.SetCommandTimeout(System.TimeSpan.FromMinutes(10));
             context.Database.BeginTransaction();
             context.Database.ExecuteSqlCommand("delete from orders");
-            context.Database.ExecuteSqlCommand("delet from Categories");
+            context.Database.ExecuteSqlCommand("delete from Categories");
             context.Database.CommitTransaction();
             return RedirectToAction(nameof(Index));
         }

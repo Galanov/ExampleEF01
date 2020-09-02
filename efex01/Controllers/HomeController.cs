@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using efex01.Models;
 using System.Linq;
+using efex01.Models.Pages;
 
 namespace efex01.Controllers
 {
@@ -16,10 +17,10 @@ namespace efex01.Controllers
             catRepository = categoryRepository;
         }
 
-        public IActionResult Index() {
+        public IActionResult Index(QueryOptions options) {
             //System.Console.Clear();
            //return View(repository.Products as IQueryable<Product>) ;
-           return View(repository.Products);
+           return View(repository.GetProducts(options));
         }
 
         [HttpPost]

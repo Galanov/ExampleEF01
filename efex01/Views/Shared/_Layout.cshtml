@@ -7,7 +7,7 @@
         <style>
             <!--По умолчанию HTML-элемент, которому назначается класс placeholder, будет иметь свойство visibility, установленное в collapse, и св-во display, что не позволит пользователю его видеть. Но когда HTML-элемент является единственным дочерним элементом включаещего элемента, значение св--в изменяется, что достигается за счет использования псевдокласса only-child  -->
             .placehplder{visibility: collapse; display: none;}
-            .placehplder: :only-child {visibility: visible; displey: flex; }
+            .placehplder: :only-child {visibility: visible; display: flex; }
         </style>
     </head>
     <body>
@@ -22,6 +22,9 @@
                 </a>
                     <a asp-controller="Orders" asp-action="Index" class="@GetClassForButton("Orders")">
                         Orders
+                    </a>
+                    <a asp-controller="Seed" asp-action="Index" class="@GetClassForButton("Seed")">
+                        Seed Data
                     </a>
             </div>
             <div class="col">
