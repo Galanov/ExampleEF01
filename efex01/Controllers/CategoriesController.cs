@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using efex01.Models;
+using efex01.Models.Pages;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace efex01.Controllers
 {
@@ -16,9 +16,9 @@ namespace efex01.Controllers
         public CategoriesController(ICategoryRepository repo) =>
             repository = repo;
 
-        public IActionResult Index()
+        public IActionResult Index(QueryOptions options)
         {
-            return View(repository.Categories);
+            return View(repository.GetCategories(options));
         }
 
         [HttpPost]
