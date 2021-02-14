@@ -19,5 +19,7 @@ namespace efex01.Models
         void UpdateAll(Product[] products);
 
         void Delete(Product product);
+
+        PagedList<Product> GetProducts(QueryOptions options, long category = 0);
     }
 }

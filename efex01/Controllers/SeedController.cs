@@ -82,6 +82,100 @@ end");
             context.Database.CommitTransaction();
             return RedirectToAction(nameof(Index));
         }
-    }
 
+        public IActionResult CreateProductionData()
+        {
+            ClearData();
+            context.Categories.AddRange(new Category[] {
+                new Category
+                {
+                    Name = "Watersports",
+                    Description = "Mаkе а splash",
+                    Products = new Product[] {
+
+                        new Product
+                        {
+                            Name = "Kауаk",
+                            Description = "А boat for one person",
+                            PurchasePrice = 200,
+                            RetailPrice = 275
+                        },
+                        new Product
+                        {
+                            Name = "Lifejacket",
+                            Description = "Protective and fashionable",
+                            PurchasePrice = 40,
+                            RetailPrice = 48.95m
+                        },
+                    }
+                },
+                new Category
+                {
+                    Name = "Soccer",
+                    Description = "he World' s Favori te Game",
+                    Products = new Product[] {
+                        new Product
+                        {
+                            Name = "Soccer Ball",
+                            Description = "FIFA-approved size and weight",
+                            PurchasePrice = 18,
+                            RetailPrice = 19.50m
+                        },
+                        new Product
+                        {
+                            Name = "Corner Flags",
+                            Description = "Give your playing field а professional touch",
+                            PurchasePrice = 32.50m,
+                            RetailPrice = 34.95m
+                        },
+                        new Product
+                        {
+                            Name = "Stadium",
+                            Description = "Flat-packed 35, 000-seat stadium",
+                            PurchasePrice = 75000,
+                            RetailPrice = 79500
+                        }
+                    }
+                },
+                new Category
+                {
+                    Name = "Chess",
+                    Description = "The Thinky Game",
+                    Products = new Product[] {
+                        new Product
+                        {
+                            Name = "Thinking Сар",
+                            Description = "Improve brain efficiency Ьу 75%",
+                            PurchasePrice = 10,
+                            RetailPrice = 16
+                        },
+
+                        new Product
+                        {
+                            Name = "Unsteady Chair",
+                            Description = "Secretly give your opponent а disadvantage",
+                            PurchasePrice = 28,
+                            RetailPrice = 29.95m
+                        },
+                        new Product
+                        {
+                            Name = "Human Chess Board",
+                            Description = "А fun game for the family",
+                            PurchasePrice = 68.50m,
+                            RetailPrice = 75
+                        },
+                        new Product
+                        {
+                            Name = "Bling-Bling King",
+                            Description = "Gold-plated, diamond-studded King",
+                            PurchasePrice = 800,
+                            RetailPrice = 1200
+                        }
+                    }
+                }
+            });
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
