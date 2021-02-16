@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using efex01.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace efex01
 {
@@ -24,7 +25,8 @@ namespace efex01
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(opts => 
+                opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize);
             
             var test1 = Configuration["test:value2"];
             var test2 = Configuration["test2"];
@@ -36,6 +38,7 @@ namespace efex01
             services.AddTransient<IRepository, DataRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IWebServiceRepository, WebServiceRepository>();
             services.AddDistributedSqlServerCache(options => {
                 options.ConnectionString = conString;
                 options.SchemaName = "dbo";
