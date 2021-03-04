@@ -15,10 +15,13 @@ namespace efex02.Controllers
         {
             repository = repo;
         }
-        public IActionResult Index()
+        public IActionResult Index(string category = null, decimal? price = null)
         {
+            var products = repository.GetFilteredProducts(category, price);
+            ViewBag.category = category;
+            ViewBag.price = price;
             return View(
-                repository.GetAllProducts()
+                products
             );
         }
 
@@ -43,9 +46,9 @@ namespace efex02.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Product product, Product original)
         {
-            repository.UpdateProduct(product);
+            repository.UpdateProduct(product, original);
             return RedirectToAction(nameof(Index));
         }
 
