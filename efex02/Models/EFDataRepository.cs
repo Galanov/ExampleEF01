@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 
 namespace efex02.Models
 {
@@ -28,19 +29,25 @@ namespace efex02.Models
         public void DeleteProduct(long id)
         {
             Console.WriteLine("DeleteProduct: " + id);
-            //Product p = context.Products.Find(id);
-            //context.Products.Remove(p);
-            context.Products.Remove(new Product { Id = id });
+            Product p = context.Products.Find(id);
+            context.Products.Remove(p);
+            //context.Products.Remove(new Product { Id = id });
+            if (p.Supplier != null)
+            {
+                context.Remove<Supplier>(p.Supplier);
+            }
             context.SaveChanges();
         }
 
         public IEnumerable<Product> GetAllProducts()
         {
             Console.WriteLine("GetAllProducts");
-            return context.Products;
+            return context.Products.Include(p=>p.Supplier)
+               ;
         }
 
-        public IEnumerable<Product> GetFilteredProducts(string category = null, decimal? price = null)
+        public IEnumerable<Product> GetFilteredProducts(string category = null, decimal? price = null,
+            bool includeRelated = true)
         {
             IQueryable<Product> data = context.Products;
             if (category != null)
@@ -51,13 +58,20 @@ namespace efex02.Models
             {
                 data = data.Where(p => p.Price >= price);
             }
+            if (includeRelated)
+            {
+                data = data.Include(p => p.Supplier);
+            }
             return data;
         }
 
         public Product GetProduct(long id)
         {
             Console.WriteLine("GetProduct: " + id);
-            return new Product();
+            return context.Products.Include(p =>p.Supplier)
+                .ThenInclude(s => s.Contact)
+                .ThenInclude(c => c.Location)
+                .First(p=>p.Id == id);
         }
 
         public IEnumerable<Product> GetProductsByPrice(decimal minPrice)
@@ -76,6 +90,9 @@ namespace efex02.Models
             originalProduct.Name = changedProduct.Name;
             originalProduct.Category = changedProduct.Category;
             originalProduct.Price = changedProduct.Price;
+            originalProduct.Supplier.Name = changedProduct.Supplier.Name;
+            originalProduct.Supplier.City = changedProduct.Supplier.City;
+            originalProduct.Supplier.State = changedProduct.Supplier.State;
 
             EntityEntry entry = context.Entry(originalProduct);
             Console.WriteLine($"Entity State: {entry.State}");

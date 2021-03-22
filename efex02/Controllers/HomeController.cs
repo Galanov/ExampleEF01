@@ -15,11 +15,13 @@ namespace efex02.Controllers
         {
             repository = repo;
         }
-        public IActionResult Index(string category = null, decimal? price = null)
+        public IActionResult Index(string category = null, decimal? price = null,
+            bool includeRealated = true)
         {
-            var products = repository.GetFilteredProducts(category, price);
+            var products = repository.GetFilteredProducts(category, price, includeRealated);
             ViewBag.category = category;
             ViewBag.price = price;
+            ViewBag.includeRelated = includeRealated;
             return View(
                 products
             );

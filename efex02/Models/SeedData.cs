@@ -37,72 +37,130 @@ namespace efex02.Models
             context.SaveChanges();
         }
 
-        private static Product[] Products =
+        private static Product[] Products
         {
-            new Product
+            get
             {
-                Name="Kayak",
-                Category = "Watersports",
-                Price = 275,
+                Product[] products = new Product[] {
+                    new Product
+                    {
+                        Name = "Kayak",
+                        Category = "Watersports",
+                        Price = 275,
+
+                    },
+                    new Product
+                    {
+                        Name = "Lafejacket",
+                        Category = "Watersports",
+                        Price = 48.95m,
+
+                    },
+                    new Product
+                    {
+                        Name = "Soccer Ball",
+                        Category = "Soccer",
+                        Price = 19.50m,
+
+                    },
+                    new Product
+                    {
+                        Name = "Corner Flags",
+                        Category = "Soccer",
+                        Price = 34.95m,
+
+                    },
+                    new Product
+                    {
+                        Name = "Stadium",
+                        Category = "Soccer",
+                        Price = 79500,
+
+                    },
+                    new Product
+                    {
+                        Name = "Thinking Cap",
+                        Category = "Chess",
+                        Price = 16,
+
+                    },
+                    new Product
+                    {
+                        Name = "Unsteady Chair",
+                        Category = "Chess",
+                        Price = 29.95m,
+
+                    },
+                    new Product
+                    {
+                        Name = "Human Chess Board",
+                        Category = "Chess",
+                        Price = 75,
+
+                    },
+                    new Product
+                    {
+                        Name = "Bling-Bling King",
+                        Category = "Chess",
+                        Price = 1200,
+
+                    },
+                };
+                ContactLocation hq = new ContactLocation
+                {
+                    LocationName = "Corporate HQ",
+                    Address = "200 Acme Way"
+                };
+
+                ContactDetails bob = new ContactDetails
+                {
+                    Name = "Bob Smith",
+                    Phone = "555-107-1234",
+                    Location = hq
+                };
+
+
+                Supplier acme = new Supplier
+                {
+                    Name = "Acme Co",
+                    City = "New York",
+                    State = "WA",
+                    Contact = bob
+                };
+
+                Supplier s1 = new Supplier
+                {
+                    Name = "Surf Dudes",
+                    City = "San Jose",
+                    State = "CA"
+                };
+
+                Supplier s2 = new Supplier
+                {
+                    Name = "Chess Kings",
+                    City = "Seatle",
+                    State = "WA"
+                };
                 
-            },
-            new Product
-            {
-                Name="Lafejacket",
-                Category = "Watersports",
-                Price = 48.95m,
-
-            },
-            new Product
-            {
-                Name="Soccer Ball",
-                Category = "Soccer",
-                Price = 19.50m,
-
-            },
-            new Product
-            {
-                Name="Corner Flags",
-                Category = "Soccer",
-                Price = 34.95m,
-
-            },
-            new Product
-            {
-                Name="Stadium",
-                Category = "Soccer",
-                Price = 79500,
-
-            },
-            new Product
-            {
-                Name="Thinking Cap",
-                Category = "Chess",
-                Price = 16,
-
-            },
-            new Product
-            {
-                Name="Unsteady Chair",
-                Category = "Chess",
-                Price = 29.95m,
-
-            },
-            new Product
-            {
-                Name="Human Chess Board",
-                Category = "Chess",
-                Price = 75,
-
-            },
-            new Product
-            {
-                Name="Bling-Bling King",
-                Category = "Chess",
-                Price = 1200,
-
-            },
-        };
+                foreach (var p in products)
+                {
+                    if (p == products[0])
+                    {
+                        p.Supplier = s1;
+                    }
+                    else if (p.Category == "Chess")
+                    {
+                        p.Supplier = s2;
+                    }
+                    else
+                    {
+                        p.Supplier = acme;
+                    }
+                    
+                }
+                return products;
+            }
+        }
 
         private static Customer[] Customers =
         {

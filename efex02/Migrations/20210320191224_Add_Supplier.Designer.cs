@@ -3,55 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using efex02.Models;
 
 namespace efex02.Migrations
 {
     [DbContext(typeof(EFDatabaseContext))]
-    partial class EFDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210320191224_Add_Supplier")]
+    partial class Add_Supplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("efex02.Models.ContactDetails", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long?>("LocationId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Phone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("ContactDetails");
-                });
-
-            modelBuilder.Entity("efex02.Models.ContactLocation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("LocationName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactLocation");
-                });
 
             modelBuilder.Entity("efex02.Models.Product", b =>
                 {
@@ -65,7 +33,7 @@ namespace efex02.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<long>("SupplierId");
+                    b.Property<long?>("SupplierId");
 
                     b.HasKey("Id");
 
@@ -82,39 +50,20 @@ namespace efex02.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<long?>("ContactId");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("State");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactId");
-
                     b.ToTable("Supplier");
-                });
-
-            modelBuilder.Entity("efex02.Models.ContactDetails", b =>
-                {
-                    b.HasOne("efex02.Models.ContactLocation", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
                 });
 
             modelBuilder.Entity("efex02.Models.Product", b =>
                 {
                     b.HasOne("efex02.Models.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("efex02.Models.Supplier", b =>
-                {
-                    b.HasOne("efex02.Models.ContactDetails", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("SupplierId");
                 });
 #pragma warning restore 612, 618
         }
