@@ -12,5 +12,6 @@ namespace efex02.Models
         public string City { get; set; }
         public string State { get; set; }
         public ContactDetails Contact { get; set; }
+        public IEnumerable<Product> Products { get; set; }
     }
 }
