@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using efex02.Models;
 
 namespace efex02.Migrations
 {
     [DbContext(typeof(EFDatabaseContext))]
-    partial class EFDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210407173952_OptionalOneToOne")]
+    partial class OptionalOneToOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,42 +82,6 @@ namespace efex02.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("efex02.Models.ProductShipmentJunction", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ProductId");
-
-                    b.Property<long>("ShipmentId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("ShipmentId");
-
-                    b.ToTable("ProductShipmentJunction");
-                });
-
-            modelBuilder.Entity("efex02.Models.Shipment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EndCity");
-
-                    b.Property<string>("ShipperName");
-
-                    b.Property<string>("StartCity");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Shipment");
-                });
-
             modelBuilder.Entity("efex02.Models.Supplier", b =>
                 {
                     b.Property<long>("Id")
@@ -149,19 +115,6 @@ namespace efex02.Migrations
                     b.HasOne("efex02.Models.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("efex02.Models.ProductShipmentJunction", b =>
-                {
-                    b.HasOne("efex02.Models.Product", "Product")
-                        .WithMany("ProductShipments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("efex02.Models.Shipment", "Shipment")
-                        .WithMany("ProductShipments")
-                        .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

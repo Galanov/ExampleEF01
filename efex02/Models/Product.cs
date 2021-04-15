@@ -21,8 +21,7 @@ namespace efex02.Models
         //public bool InStock { get; set; }
 
         public long SupplierId { get; set; }
-        public Supplier Supplier { get; set;
-        
-        }
+        public Supplier Supplier { get; set; }
+        public IEnumerable<ProductShipmentJunction> ProductShipments { get; set; }
     }
 }

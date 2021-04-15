@@ -15,6 +15,7 @@ namespace efex02.Models
                 if (context is EFDatabaseContext prodCtx && prodCtx.Products.Count() == 0)
                 {
                     prodCtx.Products.AddRange(Products);
+                    prodCtx.Set<Shipment>().AddRange(Shipments);
                 }
                 else if (context is EFCustomerContext custCtx && custCtx.Customers.Count() == 0)
                 {
@@ -29,12 +30,26 @@ namespace efex02.Models
             if (context is EFDatabaseContext prodCtx && prodCtx.Products.Count() >0)
             {
                 prodCtx.Products.RemoveRange(prodCtx.Products);
+                prodCtx.Set<Shipment>().RemoveRange(prodCtx.Set<Shipment>());
             }
             else if (context is EFCustomerContext custCtx && custCtx.Customers.Count() >0)
             {
                 custCtx.Customers.RemoveRange(custCtx.Customers);
             }
             context.SaveChanges();
+        }
+
+        public static Shipment[] Shipments
+        {
+            get
+            {
+                return new Shipment[]
+                {
+                    new Shipment{ ShipperName = "Express Co", StartCity = "New York", EndCity = "San Jose"},
+                    new Shipment{ ShipperName = "Air Express", StartCity = "Miami", EndCity = "Seatle"},
+                    new Shipment{ ShipperName = "Tortoise Shipping", StartCity = "Boston", EndCity = "Chicago"},
+                };
+            }
         }
 
         private static Product[] Products
