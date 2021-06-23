@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using efex01.Models.Pages;
+
 namespace efex01.Models
 {
     public interface ICategoryRepository
@@ -8,6 +10,7 @@ namespace efex01.Models
         void AddCategory(Category category);
         void UpdateCategory(Category category);
         void DeleteCategory(Category category);
+        PagedList<Category> GetCategories(QueryOptions options);
     }
 
     public class CategoryRepository: ICategoryRepository
@@ -17,6 +20,11 @@ namespace efex01.Models
         public CategoryRepository(DataContext ctx) => context = ctx;
 
         public IEnumerable<Category> Categories => context.Categories;
+
+        public PagedList<Category> GetCategories(QueryOptions options)
+        {
+            return new PagedList<Category>(context.Categories, options);
+        }
 
         public void AddCategory(Category category)
         {

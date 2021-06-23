@@ -75,5 +75,15 @@ namespace efex01.Models
         {
             return new PagedList<Product>(context.Products.Include(p => p.Category), options);
         }
+
+        public PagedList<Product> GetProducts(QueryOptions options, long category = 0)
+        {
+            IQueryable<Product> query = context.Products.Include(p => p.Category);
+            if (category !=- 0)
+            {
+                query = query.Where(p => p.CategoryId == category);
+            }
+            return new PagedList<Product>(query, options);
+        }
     }
 }

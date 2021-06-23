@@ -30,6 +30,10 @@ namespace efex01.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Description");
+
+                    b.HasIndex("Name");
+
                     b.ToTable("Categories");
                 });
 
@@ -83,6 +87,8 @@ namespace efex01.Migrations
 
                     b.Property<long>("CategoryId");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Name");
 
                     b.Property<decimal>("PurchasePrice");
@@ -92,6 +98,12 @@ namespace efex01.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("PurchasePrice");
+
+                    b.HasIndex("RetailPrice");
 
                     b.ToTable("Products");
                 });
@@ -112,7 +124,7 @@ namespace efex01.Migrations
             modelBuilder.Entity("efex01.Models.Product", b =>
                 {
                     b.HasOne("efex01.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
