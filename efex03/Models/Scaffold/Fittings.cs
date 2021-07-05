@@ -7,13 +7,16 @@ using System.Collections.Generic;
 
 namespace efex03.Models.Scaffold
 {
-    public partial class ShoeCategoryJunction
+    public partial class Fittings
     {
-        public long Id { get; set; }
-        public long ShoeId { get; set; }
-        public long CategoryId { get; set; }
+        public Fittings()
+        {
+            Shoes = new HashSet<Shoes>();
+        }
 
-        public virtual Categories Category { get; set; }
-        public virtual Shoes Shoe { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+
+        public virtual ICollection<Shoes> Shoes { get; set; }
     }
 }
