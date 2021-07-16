@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using efex03.Models.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using efex03.Models.Manual;
+using System.Runtime.InteropServices;
 
 namespace efex03
 {
@@ -26,10 +27,23 @@ namespace efex03
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
-            string conString = Configuration["ConnectionStrings:DefaultConnection"];
+            string conString = getConnectionString();
             services.AddDbContext<ScaffoldContext>(options =>
                 options.UseSqlServer(conString));
             services.AddDbContext<ManualContext>(options => options.UseSqlServer(conString));
+        }
+
+        private string getConnectionString()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Configuration["ConnectionStrings:DefaultConnection"];
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return Configuration["ConnectionStrings:MacConnection"];
+            }
+            throw new ArgumentException();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
