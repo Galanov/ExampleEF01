@@ -17,5 +17,8 @@ namespace efex03.Models.Manual
         public string StyleName { get; set; }
         public string MainColor { get; set; }
         public string HighlightColor { get; set; }
+        [InverseProperty(nameof(Shoe.Style))]
+        public IEnumerable<Shoe> Products { get; set; }
+        //public IEnumerable<Shoe> Shoes { get; set; }
     }
 }

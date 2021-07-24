@@ -12,6 +12,10 @@
             <th>Id</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Styles</th>
+            <th>Width</th>
+            <th>Categories</th>
+            <th></th>
         </tr>
         @foreach (Shoe s in Model)
         {
@@ -19,6 +23,15 @@
                 <td>@s.Id</td>
                 <td>@s.Name</td>
                 <td>$@s.Price.ToString("F2")</td>
+                <td class="table-primary">@s.Width?.WidthName</td>
+                <td class="table-secondary">@s.Style?.StyleName</td>
+                <td class="table-success">
+                    @string.Join(",",s.Categories.Select(c=>c.Category.Name))
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@s.Id"
+                       class="btn btn-sm btn-primary">Edit</a>
+                </td>
             </tr>
         }
     </table>
@@ -29,16 +42,16 @@
                 <tr>
                     <th>UniqueIdent</th>
                     <th>Style Name</th>
-                    <th>Main Color</th>
-                    <th>Highlight Color</th>
+                    <th>Products</th>
                 </tr>
                 @foreach (Style s in ViewBag.Styles)
                 {
                     <tr>
                         <td>@s.UniqueIdent</td>
                         <td>@s.StyleName</td>
-                        <td>@s.MainColor</td>
-                        <td>@s.HighlightColor</td>
+                        <td class="table-secondary">
+                            @String.Join(", ",s.Products.Select(p=>p.Name))
+                        </td>
                     </tr>
                 }
             </table>
@@ -49,12 +62,36 @@
                 <tr>
                     <th>UniqueIdent</th>
                     <th>Name</th>
+                    <th>Products</th>
                 </tr>
                 @foreach (ShoeWidth s in ViewBag.Widths)
                 {
                     <tr>
                         <td>@s.UniqueIdent</td>
                         <td>@s.WidthName</td>
+                        <td class="table-primary">
+                            @String.Join(", ",s.Products.Select(p=>p.Name))
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col">
+            <h5 class="bg-primary p-2 text-white">Categories</h5>
+            <table class="table table-striped table-sm">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Products</th>
+                </tr>
+                @foreach (Category c in ViewBag.Categories)
+                {
+                    <tr>
+                        <td>@c.Id</td>
+                        <td>@c.Name</td>
+                        <td class="table-success">
+                            @String.Join(", ", c.Shoes.Select(j=>j.Shoe.Name))
+                        </td>
                     </tr>
                 }
             </table>

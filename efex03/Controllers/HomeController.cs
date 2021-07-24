@@ -15,8 +15,7 @@ namespace efex03.Controllers
         public HomeController(ScaffoldContext ctx) => context = ctx;
 
         public IActionResult Index()
-        {
-            return View(context.Shoes
+        {            return View(context.Shoes
                 .Include(s=>s.Color)
                 .Include(s=>s.SalesCampaigns)
                 .Include(s=>s.ShoeCategoryJunction)

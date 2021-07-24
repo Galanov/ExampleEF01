@@ -9,6 +9,6 @@ namespace efex03.Models.Manual
     {
         public long UniqueIdent { get; set; }
         public string WidthName { get; set; }
-
+        public IEnumerable<Shoe> Products { get; set; }
     }
 }
